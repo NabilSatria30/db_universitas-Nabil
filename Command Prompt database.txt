@@ -1,0 +1,122 @@
+
+C:\laragon\bin\mysql>mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database db_universitas;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use db_universitas;
+Database changed
+mysql> create table mahasiswa(
+    -> id int primary key auto_increment,
+    -> nama_mahasiswa varchar(20),
+    -> tempat_lahir varchar(50),
+    -> alamat text,
+    -> jurusan varchar(50),
+    -> tahun_masuk varchar(5));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into mahasiswa(
+    -> nama_mahasiswa,tempat_lahir,alamat,jurusan,tahun_masuk)values
+    -> ('BABA','Bogor','Garut','kedokteran gigi','2026'),
+    -> ('BIBI','Bigur','Girut','kedokteran gigi','2026'),
+    -> ('BUBU','Bugur','Gurut','ilmu komunikasi','2026'),
+    -> ('BEBE','Depok','Jawa','ilmu komunikasi','2026'),
+    -> ('BOBO','Solo','Bali','sastra inggris','2026');
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from mahasiswa;
++----+----------------+--------------+--------+-----------------+-------------+
+| id | nama_mahasiswa | tempat_lahir | alamat | jurusan         | tahun_masuk |
++----+----------------+--------------+--------+-----------------+-------------+
+|  1 | BABA           | Bogor        | Garut  | kedokteran gigi | 2026        |
+|  2 | BIBI           | Bigur        | Girut  | kedokteran gigi | 2026        |
+|  3 | BUBU           | Bugur        | Gurut  | ilmu komunikasi | 2026        |
+|  4 | BEBE           | Depok        | Jawa   | ilmu komunikasi | 2026        |
+|  5 | BOBO           | Solo         | Bali   | sastra inggris  | 2026        |
++----+----------------+--------------+--------+-----------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> update mahasiswa set tempat_lahir='solo', alamat='solo' where id=4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> delete from mahasiswa where id=5;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from mahasiswa;
++----+----------------+--------------+--------+-----------------+-------------+
+| id | nama_mahasiswa | tempat_lahir | alamat | jurusan         | tahun_masuk |
++----+----------------+--------------+--------+-----------------+-------------+
+|  1 | BABA           | Bogor        | Garut  | kedokteran gigi | 2026        |
+|  2 | BIBI           | Bigur        | Girut  | kedokteran gigi | 2026        |
+|  3 | BUBU           | Bugur        | Gurut  | ilmu komunikasi | 2026        |
+|  4 | BEBE           | solo         | solo   | ilmu komunikasi | 2026        |
++----+----------------+--------------+--------+-----------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select nama_mahasiswa, jurusan from mahasiswa;
++----------------+-----------------+
+| nama_mahasiswa | jurusan         |
++----------------+-----------------+
+| BABA           | kedokteran gigi |
+| BIBI           | kedokteran gigi |
+| BUBU           | ilmu komunikasi |
+| BEBE           | ilmu komunikasi |
++----------------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select distinct tempat_lahir from mahasiswa;
++--------------+
+| tempat_lahir |
++--------------+
+| Bogor        |
+| Bigur        |
+| Bugur        |
+| solo         |
++--------------+
+4 rows in set (0.00 sec)
+
+mysql> select nama_mahasiswa, alamat, jurusan from mahasiswa order by alamat desc;
++----------------+--------+-----------------+
+| nama_mahasiswa | alamat | jurusan         |
++----------------+--------+-----------------+
+| BEBE           | solo   | ilmu komunikasi |
+| BUBU           | Gurut  | ilmu komunikasi |
+| BIBI           | Girut  | kedokteran gigi |
+| BABA           | Garut  | kedokteran gigi |
++----------------+--------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from mahasiswa order by nama_mahasiswa desc, alamat asc;
++----+----------------+--------------+--------+-----------------+-------------+
+| id | nama_mahasiswa | tempat_lahir | alamat | jurusan         | tahun_masuk |
++----+----------------+--------------+--------+-----------------+-------------+
+|  3 | BUBU           | Bugur        | Gurut  | ilmu komunikasi | 2026        |
+|  2 | BIBI           | Bigur        | Girut  | kedokteran gigi | 2026        |
+|  4 | BEBE           | solo         | solo   | ilmu komunikasi | 2026        |
+|  1 | BABA           | Bogor        | Garut  | kedokteran gigi | 2026        |
++----+----------------+--------------+--------+-----------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from mahasiswa where jurusan='ilmu komunikasi' order by nama_mahasiswa desc;
++----+----------------+--------------+--------+-----------------+-------------+
+| id | nama_mahasiswa | tempat_lahir | alamat | jurusan         | tahun_masuk |
++----+----------------+--------------+--------+-----------------+-------------+
+|  3 | BUBU           | Bugur        | Gurut  | ilmu komunikasi | 2026        |
+|  4 | BEBE           | solo         | solo   | ilmu komunikasi | 2026        |
++----+----------------+--------------+--------+-----------------+-------------+
+2 rows in set (0.00 sec)
+
+mysql>
